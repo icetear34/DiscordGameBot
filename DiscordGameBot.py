@@ -24,23 +24,25 @@ async def on_ready():
 @client.command(name='RollDice',
                 brief="擲骰 x個x面骰",
                 aliases=['roll','dice','r'])
-async def RollDice(ctx ,rolls:str):
+async def roll_dice(ctx ,rolls:str):
 	msg='('
-	xdx=''
+	dices=''
 	total=0
 	print(rolls)
 	if rolls.find("+")!=-1:
-		xdx=re.split('+',rolls)[0]
-		total=int(re.split('-',rolls)[1])
+		dices=rolls.split('+')[0]
+		total=int(rolls.split('+')[1])
+		addmsg=rolls[rolls.find("+"):]
 	elif rolls.find("-")!=-1:
-		xdx=re.split('-',rolls)[0]
-		total=total-int(re.split('-',rolls)[1])
+		dices=rolls.split('-')[0]
+		total=total-int(rolls.split('-')[1])
+		addmsg=rolls[rolls.find("-"):]
 	else:
-		xdx=rolls
+		dices=rolls
 	
-	numDic=int(re.split('d',xdx)[0])
+	numDic=int(re.split('d',dices)[0])
 	
-	dicVal=int(re.split('d',xdx)[1])
+	dicVal=int(re.split('d',dices)[1])
 	print(str(numDic))
 	
 	for x in range(1,int(numDic)+1):
@@ -50,8 +52,8 @@ async def RollDice(ctx ,rolls:str):
 			else:
 				msg=msg+str(num) + "+"
 			total=total+num
-	await ctx.send(msg +'='+str(total))
-	print( msg +'='+str(total))
+	await ctx.send(msg +addmsg+'='+str(total))
+	print( msg +addmsg+'='+str(total))
 
 
 @client.command()
