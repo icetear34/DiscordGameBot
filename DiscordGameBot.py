@@ -2,6 +2,7 @@ import discord
 from discord import Game
 from discord.ext import commands
 from discord.ext.commands import Bot
+import config
 import random
 import asyncio
 import pickle
@@ -93,4 +94,4 @@ async def on_message(message):
 
 
 
-client.run('MzUyNjYzMTA0MDc0NTQ3MjAw.DdFhoQ.dEEIHthy4D3M7ABT2QjWf9Gxi6I')
+client.run(config.my_token())
