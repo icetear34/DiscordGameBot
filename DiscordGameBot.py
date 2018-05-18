@@ -2,7 +2,9 @@ import discord
 from discord import Game
 from discord.ext import commands
 from discord.ext.commands import Bot
-import config
+import config ##TOKEN位置
+import func ##自訂函數
+import playerObject ##腳色物件
 import random
 import asyncio
 import pickle
@@ -26,36 +28,17 @@ async def on_ready():
                 brief="擲骰 x個x面骰",
                 aliases=['roll','dice','r'])
 async def roll_dice(ctx ,rolls:str):
-	msg='('
-	dices=''
-	total=0
-	print(rolls)
-	if rolls.find("+")!=-1:
-		dices=rolls.split('+')[0]
-		total=int(rolls.split('+')[1])
-		addmsg=rolls[rolls.find("+"):]
-	elif rolls.find("-")!=-1:
-		dices=rolls.split('-')[0]
-		total=total-int(rolls.split('-')[1])
-		addmsg=rolls[rolls.find("-"):]
-	else:
-		dices=rolls
-	
-	numDic=int(re.split('d',dices)[0])
-	
-	dicVal=int(re.split('d',dices)[1])
-	print(str(numDic))
-	
-	for x in range(1,int(numDic)+1):
-			num=random.randint(1,int(dicVal))
-			if x ==(int(numDic)):
-				msg=msg+str(num) + ")"
-			else:
-				msg=msg+str(num) + "+"
-			total=total+num
-	await ctx.send(msg +addmsg+'='+str(total))
-	print( msg +addmsg+'='+str(total))
+	msg=func.rollthedice(rolls)
+	await ctx.send(msg )
+	print( msg )
 
+@client.command(name='newplayer',
+                brief="建立角色",
+                aliases=['np'])
+async def new_player(ctx ,name:str):
+	newplay = playerObject.player_basic(name)
+	print(newplay.basicINFO())
+	await ctx.send(newplay.basicINFO())
 
 @client.command()
 async def rt(ctx ,a):
