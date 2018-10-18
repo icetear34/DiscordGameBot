@@ -1,3 +1,5 @@
+import sys
+sys.path.append(r"C:\Users\Lin\AppData\Local\Programs\Python\Python36-32\Lib\site-packages")
 import discord
 from discord import Game
 from discord.ext import commands
@@ -34,7 +36,7 @@ async def roll_dice(ctx ,rolls:str):
 
 @client.command(name='newplayer',
                 brief="建立角色",
-                aliases=['np'])
+                aliases=['np','創角'])
 async def new_player(ctx ,name:str):
 	newplay = playerObject.player_basic(name)
 	print(newplay.basicINFO())
@@ -54,7 +56,7 @@ async def sqr(ctx ,a):
 	print('------')
 	await ctx.send(sqrnum)	
 
-@client.event
+@client.event##固定文本回文
 async def on_message(message):
 	if message.author == client.user:
 		return

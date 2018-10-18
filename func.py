@@ -1,12 +1,14 @@
 import random
 import re
 
+
+##擲骰 ex:2d6+2
 def rollthedice(rolls:str):
 	msg='('
 	dices=''
 	addmsg=''
 	total=0
-	print(rolls)
+	print("rollthedice : "+rolls)
 	if rolls.find("+")!=-1:
 		dices=rolls.split('+')[0]
 		total=int(rolls.split('+')[1])
@@ -21,7 +23,6 @@ def rollthedice(rolls:str):
 	numDic=int(re.split('d',dices)[0])
 	
 	dicVal=int(re.split('d',dices)[1])
-	print(str(numDic))
 	
 	for x in range(1,int(numDic)+1):
 			num=random.randint(1,int(dicVal))
